@@ -138,6 +138,11 @@ public class RedisOptionImpl implements RedisOption{
     }
 
     @Override
+    public void zsAdd(String key, Object member, double sort) {
+        redisTemplate.opsForZSet().add(key, member, sort);
+    }
+
+    @Override
     public Long sAdd(String key, long time, Object... values) {
         Long count = redisTemplate.opsForSet().add(key, values);
         redisTemplate.expire(key, time, TimeUnit.MILLISECONDS);
@@ -148,6 +153,12 @@ public class RedisOptionImpl implements RedisOption{
     @Override
     public Boolean sIsMember(String key, Object value) {
         return redisTemplate.opsForSet().isMember(key, value);
+    }
+
+    @Override
+    public Boolean zsIsMember(String key, Object value) {
+        Long rank = redisTemplate.opsForZSet().rank(key, value);
+        return  rank != null && rank >= 0;
     }
 
     @Override

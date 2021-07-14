@@ -123,6 +123,11 @@ public interface RedisOption {
     Long sAdd(String key, Object... values);
 
     /**
+     * 向ZSet结构中添加属性
+     */
+    void zsAdd(String key, Object member, double sort);
+
+    /**
      * 向Set结构中添加属性
      */
     Long sAdd(String key, long time, Object... values);
@@ -131,6 +136,11 @@ public interface RedisOption {
      * 是否为Set中的属性
      */
     Boolean sIsMember(String key, Object value);
+
+    /**
+     * 是否为ZSet中的属性
+     */
+    Boolean zsIsMember(String key, Object value);
 
     /**
      * 获取Set结构的长度
@@ -191,4 +201,6 @@ public interface RedisOption {
      * 从右边向List结构中添加属性
      */
     Long rPush(String key, Object value, long time);
+
+
 }
