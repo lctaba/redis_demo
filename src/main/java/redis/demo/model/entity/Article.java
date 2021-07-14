@@ -15,12 +15,12 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Article {
-    private Long author;
-    private Long articleId;
+    private String author;
+    private String articleId;
     private String title;
-    private Long createTime;
-    private Long votes;
-    private Long score;
+    private String createTime;
+    private String votes;
+    private String score;
 
 
     public Map<String, Object> buildMap(){
@@ -33,4 +33,5 @@ public class Article {
         map.put("score",score);
         return map;
     }
+
 }

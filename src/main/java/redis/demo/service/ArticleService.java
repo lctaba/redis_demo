@@ -27,7 +27,7 @@ public class ArticleService {
     @PostConstruct
     private void initId(){
         if(redisOption.get(ARTICLE_ID) == null) {
-            redisOption.set(ARTICLE_ID, 0L);
+            redisOption.set(ARTICLE_ID, String.valueOf(0L));
         }
     }
 
@@ -37,18 +37,18 @@ public class ArticleService {
             article.setTitle(postArticle.getTitle());
             article.setAuthor(postArticle.getAuthor());
             long now = System.currentTimeMillis();
-            article.setCreateTime(now);
-            article.setVotes(1L);
+            article.setCreateTime(String.valueOf(now));
+            article.setVotes(String.valueOf(1));
             Long articleId = redisOption.incr(ARTICLE_ID, 1L);
-            article.setArticleId(articleId);
-            article.setScore(now / 1000 + 432);
-            if(redisOption.hHasKey(ARTICLE_SET_KEY, articleId.toString())
+            article.setArticleId(String.valueOf(articleId));
+            article.setScore(String.valueOf(now / 1000 + 432));
+            if(redisOption.hasKey(ARTICLE_SET_KEY + ": " + articleId.toString())
                     || redisOption.zsIsMember(ARTICLE_SCORE_KEY, articleId.toString())
                     || redisOption.zsIsMember(ARTICLE_TIME_KEY, articleId.toString())) {
                 return new HashMap<>();
             }
-            redisOption.hSet(ARTICLE_SET_KEY, articleId.toString(), article);
-            redisOption.zsAdd(ARTICLE_SCORE_KEY, articleId.toString(), article.getScore());
+            redisOption.hSetAll(ARTICLE_SET_KEY + ": " + articleId.toString(), article.buildMap());
+            redisOption.zsAdd(ARTICLE_SCORE_KEY, articleId.toString(), Long.parseLong(article.getScore()));
             redisOption.zsAdd(ARTICLE_TIME_KEY, articleId.toString(), now);
             return article.buildMap();
         } else {

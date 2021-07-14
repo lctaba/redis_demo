@@ -13,5 +13,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class PostArticle {
     private String title;
-    private Long author;
+    private String author;
 }
