@@ -1,4 +1,6 @@
-package dao;
+package redis.demo.dao;
+
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Map;
@@ -8,6 +10,7 @@ import java.util.Set;
  * Author chenyuhan
  * Date 2021/7/13
  */
+@Repository
 public interface RedisOption {
     /**
      * 保存属性

@@ -1,8 +1,9 @@
-package dao;
+package redis.demo.dao;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Repository;
 
+import javax.annotation.Resource;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -12,8 +13,9 @@ import java.util.concurrent.TimeUnit;
  * Author chenyuhan
  * Date 2021/7/13
  */
+@Repository
 public class RedisOptionImpl implements RedisOption{
-    @Autowired
+    @Resource
     private RedisTemplate<String,Object> redisTemplate;
 
 
